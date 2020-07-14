@@ -27,7 +27,7 @@ namespace Chessington.GameEngine.Pieces
                 square = new Square(row - 1, col);
             }
 
-            if (board.GetPiece(square) == null)
+            if (square.IsWithinBoard() && board.GetPiece(square) == null)
             {
                 movesList.Add(square);
                 

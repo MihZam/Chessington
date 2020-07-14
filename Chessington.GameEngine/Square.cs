@@ -69,5 +69,13 @@
                 return true;
             }
         }
+        
+        public bool IsWithinBoard()
+        {
+            var row = this.Row;
+            var col = this.Col;
+
+            return (row >= 0 && row < GameSettings.BoardSize && col >= 0 && col < GameSettings.BoardSize);
+        }
     }
 }
