@@ -26,28 +26,54 @@ namespace Chessington.GameEngine.Pieces
             hasMoved = true;
         }
 
-        protected List<Square> addLateralMoves(Square currentSquare)
+        protected List<Square> addLateralMoves(Square currentSquare, Board board)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
             var moves = new List<Square>();
             
-            for (var i = 0; i < GameSettings.BoardSize; i++)
+            // Move downwards
+            for (var i = row + 1; i < GameSettings.BoardSize; i++)
             {
                 var square = new Square(i, col);
-                if (i != row)
+                if (board.GetPiece(square) != null)
                 {
-                    moves.Add(square);
+                    break;
                 }
+                moves.Add(square);
+            }
+            
+            // Move upwards
+            for (var i = row - 1; i >= 0; i--)
+            {
+                var square = new Square(i, col);
+                if (board.GetPiece(square) != null)
+                {
+                    break;
+                }
+                moves.Add(square);
             }
 
-            for (var j = 0; j < GameSettings.BoardSize; j++)
+            // Move rightwards 
+            for (var j = col + 1; j < GameSettings.BoardSize; j++)
             {
                 var square = new Square(row, j);
-                if (j != col)
+                if (board.GetPiece(square) != null)
                 {
-                    moves.Add(square);
+                    break;
                 }
+                moves.Add(square);
+            }
+            
+            // Move leftwards
+            for (var j = col - 1; j >= 0; j--)
+            {
+                var square = new Square(row, j);
+                if (board.GetPiece(square) != null)
+                {
+                    break;
+                }
+                moves.Add(square);
             }
 
             return moves;
