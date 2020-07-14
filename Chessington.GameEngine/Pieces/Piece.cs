@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Configuration;
+using System.Resources;
 
 namespace Chessington.GameEngine.Pieces
 {
@@ -25,9 +26,13 @@ namespace Chessington.GameEngine.Pieces
             hasMoved = true;
         }
 
-        protected void addLateralMoves(List<Square> moves, int row, int col)
+        protected List<Square> addLateralMoves(Square currentSquare)
         {
-            for (var i = 0; i < 8; i++)
+            var row = currentSquare.Row;
+            var col = currentSquare.Col;
+            var moves = new List<Square>();
+            
+            for (var i = 0; i < GameSettings.BoardSize; i++)
             {
                 var square = new Square(i, col);
                 if (i != row)
@@ -36,7 +41,7 @@ namespace Chessington.GameEngine.Pieces
                 }
             }
 
-            for (var j = 0; j < 8; j++)
+            for (var j = 0; j < GameSettings.BoardSize; j++)
             {
                 var square = new Square(row, j);
                 if (j != col)
@@ -44,11 +49,35 @@ namespace Chessington.GameEngine.Pieces
                     moves.Add(square);
                 }
             }
+
+            return moves;
+        }
+
+        protected List<Square> AddKnightMoves(Square square)
+        {
+            var row = square.Row;
+            var col = square.Col;
+            var moves = new List<Square>();
+            
+            for (var i = -2; i <= 2; i++)
+            {
+                if (i != 0)
+                {
+                    moves.Add(new Square(row+i, col+(3 - Math.Abs(i))));
+                    moves.Add(new Square(row+i, col-(3 - Math.Abs(i))));
+                }
+            }
+
+            return moves;
         }
         
-        protected void AddDiagonalMoves(List<Square> moves, int row, int col)
+        protected List<Square> AddDiagonalMoves(Square currentSquare)
         {
-            for (var i = -Math.Min(row, col); i < Math.Max(8 - row, 8 - col); i++)
+            var row = currentSquare.Row;
+            var col = currentSquare.Col;
+            var moves = new List<Square>();
+            
+            for (var i = -Math.Min(row, col); i < Math.Max(GameSettings.BoardSize - row, GameSettings.BoardSize - col); i++)
             {
                 var square = new Square(row + i, col + i);
                 if (i != 0)
@@ -57,7 +86,7 @@ namespace Chessington.GameEngine.Pieces
                 }
             }
             
-            for (var i = -Math.Min(row,7 - col); i < Math.Max(8 - row, col); i++)
+            for (var i = -Math.Min(row, GameSettings.BoardSize - 1 - col); i < Math.Max(GameSettings.BoardSize - row, col); i++)
             {
                 var square = new Square(row + i, col - i);
                 if (i != 0)
@@ -65,7 +94,11 @@ namespace Chessington.GameEngine.Pieces
                     moves.Add(square);
                 }
             }
+
+            return moves;
         }
         
     }
 }
+
+// boardSize instead of 8

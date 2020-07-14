@@ -14,32 +14,26 @@ namespace Chessington.GameEngine.Pieces
             var row = board.FindPiece(this).Row;
             var movesList = new List<Square>();
             Square farSquare;
+            Square square;
             
             if (Player == Player.Black)
             {
                 farSquare = new Square(row + 2, col);
-                if (!hasMoved && farSquare.NotOwnedBy(Player.Black, board))
-                {
-                    movesList.Add(farSquare);
-                }
-                var square = new Square(row + 1, col);
-                if (square.NotOwnedBy(Player.Black, board))
-                {
-                    movesList.Add(square);
-                }
+                square = new Square(row + 1, col);
             }
             else
             {
                 farSquare = new Square(row - 2, col);
-                if (!hasMoved && farSquare.NotOwnedBy(Player.White, board))
-                {
-                    movesList.Add(farSquare);
-                }
-                var square = new Square(row - 1, col);
-                if (square.NotOwnedBy(Player.White, board))
-                {
-                    movesList.Add(square);
-                }
+                square = new Square(row - 1, col);
+            }
+            
+            if (!hasMoved && farSquare.NotOwnedBy(Player, board))
+            {
+                movesList.Add(farSquare);
+            }
+            if (square.NotOwnedBy(Player, board))
+            {
+                movesList.Add(square);
             }
             
             return movesList;
