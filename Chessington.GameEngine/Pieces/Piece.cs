@@ -97,6 +97,26 @@ namespace Chessington.GameEngine.Pieces
 
             return moves;
         }
+
+        protected List<Square> AddKingMoves(Square square)
+        {
+            var row = square.Row;
+            var col = square.Col;
+            var moves = new List<Square>();
+
+            for (var i = -1; i <= 1; i++)
+            {
+                for (var j = -1; j <= 1; j++)
+                {
+                    if (! (i == 0 && j == 0))
+                    {
+                        moves.Add(new Square(row + i, col + j));
+                    }
+                }
+            }
+            
+            return moves;
+        }
         
     }
 }
