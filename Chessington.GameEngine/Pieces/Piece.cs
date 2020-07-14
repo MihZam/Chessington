@@ -95,7 +95,7 @@ namespace Chessington.GameEngine.Pieces
             return moves;
         }
 
-        protected List<Square> AddKnightMoves(Square currentSquare)
+        protected List<Square> AddKnightMoves(Square currentSquare, Board board, Player player)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
@@ -106,13 +106,13 @@ namespace Chessington.GameEngine.Pieces
                 if (i != 0)
                 {
                     var square = new Square(row+i, col+(3 - Math.Abs(i)));
-                    if (square.IsWithinBoard())
+                    if (square.IsWithinBoard() && board.GetPiece(square) != null && board.GetPiece(square).Player != player)
                     {
                         moves.Add(square);
                     }
 
                     square = new Square(row + i, col - (3 - Math.Abs(i)));
-                    if (square.IsWithinBoard())
+                    if (square.IsWithinBoard() && board.GetPiece(square) != null && board.GetPiece(square).Player != player)
                     {
                         moves.Add(square);
                     }
