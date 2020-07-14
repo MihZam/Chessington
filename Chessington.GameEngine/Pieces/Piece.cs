@@ -106,13 +106,17 @@ namespace Chessington.GameEngine.Pieces
                 if (i != 0)
                 {
                     var square = new Square(row+i, col+(3 - Math.Abs(i)));
-                    if (square.IsWithinBoard() && board.GetPiece(square) != null && board.GetPiece(square).Player != player)
+                    if (square.IsWithinBoard() &&
+                        (board.GetPiece(square)?.Player != player ||
+                         board.GetPiece(square) == null))
                     {
                         moves.Add(square);
                     }
 
                     square = new Square(row + i, col - (3 - Math.Abs(i)));
-                    if (square.IsWithinBoard() && board.GetPiece(square) != null && board.GetPiece(square).Player != player)
+                    if (square.IsWithinBoard() &&
+                        (board.GetPiece(square)?.Player != player ||
+                         board.GetPiece(square) == null))
                     {
                         moves.Add(square);
                     }
@@ -198,7 +202,7 @@ namespace Chessington.GameEngine.Pieces
             return moves;
         }
 
-        protected List<Square> AddKingMoves(Square currentSquare)
+        protected List<Square> AddKingMoves(Square currentSquare, Board board, Player player)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
@@ -211,7 +215,9 @@ namespace Chessington.GameEngine.Pieces
                     if (! (i == 0 && j == 0))
                     {
                         var square = new Square(row + i, col + j);
-                        if (square.IsWithinBoard())
+                        if (square.IsWithinBoard() && 
+                            (board.GetPiece(square)?.Player != player ||
+                             board.GetPiece(square) == null))
                         {
                             moves.Add(square);
                         }

@@ -11,7 +11,7 @@ namespace Chessington.GameEngine.Pieces
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             var square = board.FindPiece(this);
-            return AddKingMoves(square);
+            return AddKingMoves(square, board, this.Player);
         }
     }
 }
