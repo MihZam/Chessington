@@ -97,28 +97,61 @@ namespace Chessington.GameEngine.Pieces
             return moves;
         }
         
-        protected List<Square> AddDiagonalMoves(Square currentSquare)
+        protected List<Square> AddDiagonalMoves(Square currentSquare, Board board)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
             var moves = new List<Square>();
             
-            for (var i = -Math.Min(row, col); i < Math.Max(GameSettings.BoardSize - row, GameSettings.BoardSize - col); i++)
+            /* Limits (all strict):
+             * upper-left: Math.Min(row + 1, col + 1)
+             * upper-right: Math.Min(row + 1, GameSettings.BoardSize - col)
+             * lower-right: Math.Min(GameSettings.BoardSize - row, GameSettings.BoardSize - col
+             * lower-left: Math.Min(GameSettings.BoardSize - row, col + 1)
+             */
+            
+            // Move towards bottom right
+            for (var i = 1; i < Math.Min(GameSettings.BoardSize - row, GameSettings.BoardSize - col); i++)
             {
                 var square = new Square(row + i, col + i);
-                if (i != 0)
+                if (board.GetPiece(square) != null)
                 {
-                    moves.Add(square);
+                    break;
                 }
+                moves.Add(square);
             }
             
-            for (var i = -Math.Min(row, GameSettings.BoardSize - 1 - col); i < Math.Max(GameSettings.BoardSize - row, col); i++)
+            // Move towards bottom left
+            for (var i = 1; i < Math.Min(GameSettings.BoardSize - row, col + 1); i++)
             {
                 var square = new Square(row + i, col - i);
-                if (i != 0)
+                if (board.GetPiece(square) != null)
                 {
-                    moves.Add(square);
+                    break;
                 }
+                moves.Add(square);
+            }
+            
+            // Move towards top left
+            for (var i = 1; i < Math.Min(row + 1, col + 1); i++)
+            {
+                var square = new Square(row - i, col - i);
+                if (board.GetPiece(square) != null)
+                {
+                    break;
+                }
+                moves.Add(square);
+            }
+            
+            // Move towards top right
+            for (var i = 1; i < Math.Min(row + 1, GameSettings.BoardSize - col); i++)
+            {
+                var square = new Square(row - i, col + i);
+                if (board.GetPiece(square) != null)
+                {
+                    break;
+                }
+                moves.Add(square);
             }
 
             return moves;
@@ -143,7 +176,7 @@ namespace Chessington.GameEngine.Pieces
             
             return moves;
         }
-        
+
     }
 }
 
