@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 
 namespace Chessington.GameEngine.Pieces
 {
@@ -12,6 +13,8 @@ namespace Chessington.GameEngine.Pieces
         }
 
         public Player Player { get; private set; }
+        
+        protected bool hasMoved = false;
 
         public abstract IEnumerable<Square> GetAvailableMoves(Board board);
 
@@ -19,6 +22,7 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             board.MovePiece(currentSquare, newSquare);
+            hasMoved = true;
         }
 
         protected void addLateralMoves(List<Square> moves, int row, int col)

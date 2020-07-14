@@ -18,7 +18,7 @@ namespace Chessington.GameEngine.Pieces
             if (Player == Player.Black)
             {
                 farSquare = new Square(row + 2, col);
-                if (!HasMoved(board) && farSquare.NotOwnedBy(Player.Black, board))
+                if (!hasMoved && farSquare.NotOwnedBy(Player.Black, board))
                 {
                     movesList.Add(farSquare);
                 }
@@ -31,7 +31,7 @@ namespace Chessington.GameEngine.Pieces
             else
             {
                 farSquare = new Square(row - 2, col);
-                if (!HasMoved(board) && farSquare.NotOwnedBy(Player.White, board))
+                if (!hasMoved && farSquare.NotOwnedBy(Player.White, board))
                 {
                     movesList.Add(farSquare);
                 }
@@ -44,13 +44,6 @@ namespace Chessington.GameEngine.Pieces
             
             return movesList;
         }
-
-        private bool HasMoved(Board board)
-        {
-            var col = board.FindPiece(this).Col;
-            var row = board.FindPiece(this).Row;
-            return !(Player == Player.Black && row == 1 && Enumerable.Range(0, 8).Contains(col) ||
-                     Player == Player.White && row == 7 && Enumerable.Range(0, 8).Contains(col));
-        }
+        
     }
 }
