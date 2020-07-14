@@ -26,7 +26,7 @@ namespace Chessington.GameEngine.Pieces
             hasMoved = true;
         }
 
-        protected List<Square> AddLateralMoves(Square currentSquare, Board board)
+        protected List<Square> AddLateralMoves(Square currentSquare, Board board, Player player)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
@@ -38,6 +38,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(i, col);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -49,6 +53,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(i, col);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -60,6 +68,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row, j);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -71,6 +83,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row, j);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
