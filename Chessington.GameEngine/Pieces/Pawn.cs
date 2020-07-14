@@ -26,16 +26,17 @@ namespace Chessington.GameEngine.Pieces
                 farSquare = new Square(row - 2, col);
                 square = new Square(row - 1, col);
             }
-            
-            if (!hasMoved && farSquare.NotOwnedBy(Player, board))
-            {
-                movesList.Add(farSquare);
-            }
-            if (square.NotOwnedBy(Player, board))
+
+            if (board.GetPiece(square) == null)
             {
                 movesList.Add(square);
+                
+                if (!hasMoved && board.GetPiece(farSquare) == null)
+                {
+                    movesList.Add(farSquare);
+                }
             }
-            
+
             return movesList;
         }
         
