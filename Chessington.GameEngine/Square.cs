@@ -49,5 +49,25 @@
         {
             return string.Format("Row {0}, Col {1}", Row, Col);
         }
+        
+        public bool NotOwnedBy(Player colour, Board board)
+        {
+            if (colour == Player.Black)
+            {
+                if (board.GetPiece(this) != null)
+                {
+                    return board.GetPiece(this).Player != Player.Black;
+                }
+                return true;
+            }
+            else
+            {
+                if (board.GetPiece(this) != null)
+                {
+                    return board.GetPiece(this).Player != Player.White;
+                }
+                return true;
+            }
+        }
     }
 }
