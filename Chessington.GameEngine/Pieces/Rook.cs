@@ -16,17 +16,19 @@ namespace Chessington.GameEngine.Pieces
 
             for (var i = 0; i < 8; i++)
             {
+                var square = new Square(i, col);
                 if (i != row)
                 {
-                    movesList.Add(new Square(i, col));
+                    movesList.Add(square);
                 }
             }
 
             for (var j = 0; j < 8; j++)
             {
+                var square = new Square(row, j);
                 if (j != col)
                 {
-                    movesList.Add(new Square(row, j));
+                    movesList.Add(square);
                 }
             }
 
