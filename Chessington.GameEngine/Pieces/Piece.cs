@@ -122,7 +122,7 @@ namespace Chessington.GameEngine.Pieces
             return moves;
         }
         
-        protected List<Square> AddDiagonalMoves(Square currentSquare, Board board)
+        protected List<Square> AddDiagonalMoves(Square currentSquare, Board board, Player player)
         {
             var row = currentSquare.Row;
             var col = currentSquare.Col;
@@ -141,6 +141,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row + i, col + i);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -152,6 +156,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row + i, col - i);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -163,6 +171,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row - i, col - i);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
@@ -174,6 +186,10 @@ namespace Chessington.GameEngine.Pieces
                 var square = new Square(row - i, col + i);
                 if (board.GetPiece(square) != null)
                 {
+                    if (board.GetPiece(square).Player != player)
+                    {
+                        moves.Add(square);
+                    }
                     break;
                 }
                 moves.Add(square);
