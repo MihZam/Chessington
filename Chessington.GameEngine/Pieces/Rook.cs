@@ -14,23 +14,7 @@ namespace Chessington.GameEngine.Pieces
             var row = board.FindPiece(this).Row;
             var movesList = new List<Square>();
 
-            for (var i = 0; i < 8; i++)
-            {
-                var square = new Square(i, col);
-                if (i != row)
-                {
-                    movesList.Add(square);
-                }
-            }
-
-            for (var j = 0; j < 8; j++)
-            {
-                var square = new Square(row, j);
-                if (j != col)
-                {
-                    movesList.Add(square);
-                }
-            }
+            addLateralMoves(movesList, row, col);
 
             return movesList;
         }

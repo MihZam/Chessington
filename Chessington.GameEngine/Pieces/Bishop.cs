@@ -15,21 +15,7 @@ namespace Chessington.GameEngine.Pieces
             var row = board.FindPiece(this).Row;
             var movesList = new List<Square>();
 
-            for (var i = -Math.Min(row, col); i < Math.Max(8 - row, 8 - col); i++)
-            {
-                if (i != 0)
-                {
-                    movesList.Add(new Square(row + i, col + i));
-                }
-            }
-            
-            for (var i = -Math.Min(row,7 - col); i < Math.Max(8 - row, col); i++)
-            {
-                if (i != 0)
-                {
-                    movesList.Add(new Square(row + i, col - i));
-                }
-            }
+            AddDiagonalMoves(movesList, row, col);
 
             return movesList;
         }
